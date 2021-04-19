@@ -26,13 +26,13 @@ function createFeatures(earthquakeData) {
         if (depth < 20) {
             return "green"
         }
-        else if (depth < 40) {
+        else if (depth < 30) {
             return "yellow"
         }
-        else if (depth < 60) {
+        else if (depth < 50) {
             return "orange"
         }
-        else if (depth < 80) {
+        else if (depth < 70) {
             return "red"
         }
         else {
