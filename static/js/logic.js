@@ -1,5 +1,5 @@
 // Store API endpoint
-const queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
+const queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson";
 
 // Perform a GET request of the query URL
 d3.json(queryURL).then(data => {
@@ -48,7 +48,7 @@ function createFeatures(earthquakeData) {
           return new L.Circle(latlng, {
             radius: circleSize(earthquakeData.properties.mag),
             color: circleColor(earthquakeData.geometry.coordinates[2]),
-            fillOpacity: 1 
+            fillOpacity: .5
           });
         }
       });
@@ -61,9 +61,17 @@ function createMap(earthquakes) {
 
 // Create map
 const myMap = L.map("map", {
-    center: [37.09, -95.71],
-    zoom: 5,
-    layers: [earthquakes]
+    center: [15, -65],
+    zoom: 3,
+    layers: earthquakes
+})
+
+// Adding tile layer
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  maxZoom: 18,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
 }).addTo(myMap);
 
 // Create legend
