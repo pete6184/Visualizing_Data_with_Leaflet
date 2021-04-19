@@ -10,14 +10,25 @@ d3.json(queryURL).then(data => {
     createFeatures(data.features);
 });
 
-
 function createFeatures(earthquakeData) {
 
     // Define a function to run for each feature in the features array and create popup for each data point
     function onEachFeature(feature, layer) {
-        layer.bindPopup("<h3>" + feature.properties.title + 
-        "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+        layer.bindPopup("<h2>" + feature.properties.place + "</h2> <hr> <h3>Magnitude: " + 
+        (feature.properties.mag) + "</h3> <hr> <h3>Depth: " + feature.geometry.coordinates[2] + "</h3>");
     }
+
+    // Create circle size based on size of quake
+    function circleSize(magnitude) {
+        return magnitude * 15000
+    }
+
+    // Define circle color based on depth of quake
+    function circleColor(depth) {
+
+    }
+
+
 
     // Create GeoJSON layer containing the features array
     // Run the onEachFeatures function for each data point in the array
