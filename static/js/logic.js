@@ -75,7 +75,11 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 // Create legend
-
+const legend = L.control({ position: "bottomright"});
+legend.onAdd = function () {
+    const div = L.DomUtil.create("div", "info legend");
+    
+}
 
 
 
