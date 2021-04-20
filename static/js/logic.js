@@ -23,16 +23,16 @@ function createFeatures(earthquakeData) {
 
     // Define circle color based on depth of quake
     function circleColor(depth) {
-        if (depth < 20) {
+        if (depth <= 10) {
             return "green"
         }
-        else if (depth < 30) {
+        else if (depth <= 40) {
             return "yellow"
         }
-        else if (depth < 50) {
+        else if (depth <= 70) {
             return "orange"
         }
-        else if (depth < 70) {
+        else if (depth <= 100) {
             return "red"
         }
         else {
@@ -51,7 +51,7 @@ function createFeatures(earthquakeData) {
             fillOpacity: .5
           });
         }
-      });
+    });
     
     // Sending earthquakes layer to the createMap function
     createMap(earthquakes);
@@ -59,28 +59,37 @@ function createFeatures(earthquakeData) {
 
 function createMap(earthquakes) {
 
-// Create map
-const myMap = L.map("map", {
-    center: [15, -65],
-    zoom: 3,
-    layers: earthquakes
-})
+    // Create map
+    const myMap = L.map("map", {
+        center: [15, -65],
+        zoom: 3,
+        layers: earthquakes
+    })
 
-// Adding tile layer
-L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  maxZoom: 18,
-  id: "mapbox/streets-v11",
-  accessToken: API_KEY
-}).addTo(myMap);
+    // Adding tile layer
+    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    maxZoom: 18,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+    }).addTo(myMap);
 
-// Create legend
-const legend = L.control({ position: "bottomright"});
-legend.onAdd = function () {
-    const div = L.DomUtil.create("div", "info legend");
-    
-}
+    // Create legend
+    const legend = L.control({ position: "bottomright"});
 
+    legend.onAdd = function () {
+        
+        const div = L.DomUtil.create("div", "info legend");
 
+        depths = [0, 10, 40, 70, 100];
+        colors = ['green', 'yellow', 'orange', 'red', 'purple'];
 
+        for (i = 0; i < depths.length; i++) {
+            div.innerHTML += "<i style='background: " + colors[i] + "'></i>" + depths[i] + (depths[i + 1] ? "&ndash;" + depths[i + 1] + "<br>" : "+");
+        }
+
+        return div;
+    };
+
+    legend.addTo(myMap);
 }
