@@ -17,5 +17,6 @@ For this project, I created a map using Leaflet that plots all of the earthquake
 
 ## Requirements
 
-In order to run this map you will need to get an API key from https://www.mapbox.com/ and add it to the config.js file.
+In order to run this map you will first need to get an API key from https://www.mapbox.com/ and add it to the config.js file.
 
+Then you have to run the index.html file with the IDE's live server.
