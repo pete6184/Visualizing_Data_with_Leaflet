@@ -18,7 +18,7 @@ function createFeatures(earthquakeData) {
 
     // Create circle size based on size of quake
     function circleSize(magnitude) {
-        return magnitude * 25000
+        return magnitude * 10 * 4000
     }
 
     // Define circle color based on depth of quake
